@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link rel="icon" href="micon.png">
+		<link rel="stylesheet" type="text/css" href="../css/bootstrap.css"> 
+		<link href='https://fonts.googleapis.com/css?family=Comfortaa' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+
+		<title>Fashionize Feedback</title>
+
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+		<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="FashCSS.css">
+
+		<script src="https://www.gstatic.com/firebasejs/3.2.1/firebase.js"></script>
+
+		<!-- CSS -->
+		<style>
+		 p {
+		 	margin: 20px;
+		 }
+		</style>
+	</head>
+
+	<body>
+		<nav class="navbar navbar-default navbar-fixed-top">
+		<a href="Fashionize.html"><img src="logo.png" height="50px" width="100px" align="left"></a> <!-- Logo -->
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand" href="Fashionize.html">Fashionize</a>
+				</div>
+				<!-- Tabs -->
+				<div class="navbar-collapse collapse">
+					<ul class="nav navbar-nav">
+						<li><a href="Bras.html">Bras</a></li>
+						<li><a href="Shirts.html">Shirts</a></li>
+						<li><a href="Shoes.html">Shoes</a></li>
+						<li><a href="Pants.html">Pants</a></li>
+            			<li><a href="StyleTips.html">Style Tips</a></li>
+						<li><a href="Related.html">Related</a></li>
+						<li class="active"><a href="comments.html">Feedback</a></li>
+						<audio controls autoplay loop id="sound">
+								<source src="runwaybeat.mp3" type="audio/mpeg">
+						</audio>
+					</ul>
+				</div>
+			</div>
+		</nav>
+		<br>
+		<br>
+		<Br>
+
+		<center><h2><u>Leave us your comments, concerns and any other questions!</u></h2></center>
+
+		<br>
+
+		<center>
+		<div id="divName">
+			<form method='post'>
+				<b>Name:</b> <br>
+				<input type='text' name='name' id="name"><br>
+
+				<br>
+
+				<b>Email:</b> <br>
+				<input type='text' name='email' id="email"><br>
+
+				<br>
+
+				<b>Comment:</b><br>
+				<textarea name='comment' id="comment"></textarea><br>
+
+				<input type='submit' value='Submit' onclick="myfunction()">
+			</form>
+		</div>
+		</center>
+
+<!-- 		<p id="1"></p>
+		<p id="2"></p> -->
+
+		<script>
+			// Initialize Firebase
+			var config = {
+				apiKey: "AIzaSyAOuzH_T2gHEmIWlcrqElzgd37cKPIETEo",
+				authDomain: "fashionize-a06c1.firebaseapp.com",
+				databaseURL: "https://fashionize-a06c1.firebaseio.com",
+				storageBucket: "fashionize-a06c1.appspot.com",
+				};
+			firebase.initializeApp(config);
+
+			function myfunction() {
+			// A post entry.
+				var postData = {
+					author: document.getElementById("name").value,
+					title: document.getElementById("email").value,
+					body: document.getElementById("comment").value,
+					};
+			// Get a key for a new Post.
+				var newPostKey = firebase.database().ref().child('posts').push().key;
+			// Write the new post's data simultaneously in the posts list and the user's post list.
+				var updates = {};
+				updates['/posts/' + newPostKey] = postData;
+
+				firebase.database().ref().update(updates);
+				console.log(postData);
+			}
+
+			// Attach an asynchronous callback to read the data at our posts reference
+			firebase.database().ref().on("value", function(snapshot) {
+				var database = snapshot.val();
+				for(var i in database) {
+					var posts = database[i];
+					for(var j in posts) {
+						var post = posts[j];
+						var author = post["author"];
+						var title = post["title"];
+						var body = post["body"];
+			// 			var a = "Name: ";
+			// 			var b = " Email: ";
+			// 			var c = " Comment: ";
+			// 			var x = a.bold();
+			// 			var y = b.bold();
+			// 			var z = c.bold();
+			// 			var n = 0
+			// 			document.getElementById(String(1 + n)).innerHTML = x + author + y + title
+			// 			+ z + body;
+			// 			n++
+					}
+				}
+		  //   }, function (errorObject) {
+				// console.log("The read failed: " + errorObject.code);
+		  	});
+		</script>
+
+		<!-- Cursor -->
+		<div align="center" style="z-index:9;visibility:visible;"></a></div><style>HTML,BODY{cursor: url("http://downloads.totallyfreecursors.com/cursor_files/lipstickpinkglitter.ani"), url("http://downloads.totallyfreecursors.com/thumbnails/lipstickpinkglitter.gif"), auto;}</style>
+		<style>A:hover{cursor: url("http://downloads.totallyfreecursors.com/cursor_files/lipstickpinkglitter.ani"), url("http://downloads.totallyfreecursors.com/thumbnails/lipstickpinkglitter.gif"), auto;}</style>
+
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	</body>
+</html>
